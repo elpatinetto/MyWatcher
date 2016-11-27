@@ -11,4 +11,6 @@
     <string name="welcome">Bienvenue</string>
     <string name="btn_deconnexion">DECONNEXION</string>
     <string name="name">Nom Complet</string>
+    <string name="minimum_password">6</string>
+    <string name="auth_failed">Echec de la connexion ( vérifiez bien vos identifiants)</string>
 </resources>

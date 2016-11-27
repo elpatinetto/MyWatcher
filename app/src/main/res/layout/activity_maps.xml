@@ -5,4 +5,13 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nono.watcher.MapsActivity" />
+    tools:context="com.example.nono.watcher.MapsActivity" >
+    <Button
+        android:id="@+id/btnDeco"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="@color/btn_login_bg"
+        android:text="@string/btn_deconnexion"
+        android:textColor="@color/btn_login" />
+    </fragment>

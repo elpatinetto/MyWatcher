@@ -40,25 +40,25 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
-        <!--  Button Connexion -->
+        <!--  Button Inscription-->
 
-        <Button
-            android:id="@+id/btnConn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_connexion"
-            android:textColor="@color/btn_login" />
-
-        <!-- Lien pour l'inscription -->
         <Button
             android:id="@+id/btn_inscr"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@color/btn_login_bg"
+            android:text="@string/btn_inscription"
+            android:textColor="@color/btn_login" />
+
+        <!-- Lien pour connexion -->
+        <Button
+            android:id="@+id/btnConn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="@string/btn_lien_inscription"
+            android:text="@string/btn_lien_connexion"
             android:textAllCaps="false"
             android:textColor="@color/btn_login"
             android:textSize="15dp" />
