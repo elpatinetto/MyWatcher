@@ -20,7 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 
 import org.apache.http.HttpEntity;
@@ -52,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String nom = "lodou";
     String lat;
     String longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
