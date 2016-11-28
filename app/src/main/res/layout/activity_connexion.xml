@@ -68,7 +68,7 @@
             android:background="@null"
             android:text="@string/btn_lien_inscription"
             android:textAllCaps="false"
-            android:textColor="@color/btn_login"
+            android:textColor="@color/white"
             android:textSize="15dp" />
     </LinearLayout>
 

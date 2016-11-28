@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#FF7C6C</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="bg_connexion">#ffcf4b</color>
-    <color name="bg_inscription">#2e3237</color>
+    <color name="bg_connexion">#FF6C5C</color>
+    <color name="bg_inscription">#FF7C6C</color>
     <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>
     <color name="input_login">#222222</color>

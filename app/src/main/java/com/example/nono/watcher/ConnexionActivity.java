@@ -53,13 +53,13 @@ public class ConnexionActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Toast.makeText(getApplicationContext(), "onAuthStateChanged:signed_in:" + user.getUid(),Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "onAuthStateChanged:signed_in:" + user.getUid(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ConnexionActivity.this, MapsActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     // User is signed out
-                    Toast.makeText(getApplicationContext(), "user deco fb",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "user deco fb",Toast.LENGTH_SHORT).show();
 
                 }
                 // ...
@@ -85,7 +85,7 @@ public class ConnexionActivity extends AppCompatActivity {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(),"connexionn fb :"+loginResult,Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(),"connexionn fb :"+loginResult,Toast.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -180,7 +180,6 @@ public class ConnexionActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
 
-
                     }
                 });
     }
@@ -189,6 +188,11 @@ public class ConnexionActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(mAuthListener);
+        if(auth.getCurrentUser()!=null){
+            Intent intent = new Intent(ConnexionActivity.this, MapsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
