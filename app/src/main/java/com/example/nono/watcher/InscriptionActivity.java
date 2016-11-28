@@ -31,7 +31,7 @@ public class InscriptionActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         btnInscription = (Button) findViewById(R.id.btn_inscr);
         btnConnexion = (Button) findViewById(R.id.btnConn);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +63,14 @@ public class InscriptionActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Votre mot de passe est trop court!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                progressBar.setVisibility(View.VISIBLE);
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(InscriptionActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(InscriptionActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InscriptionActivity.this, "Connexion réussi" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
-                            Toast.makeText(InscriptionActivity.this, "Authentication failed." + task.getException(),
+                            Toast.makeText(InscriptionActivity.this, "Erreur connexion." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(InscriptionActivity.this, MapsActivity.class));
