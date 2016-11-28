@@ -3,7 +3,7 @@
     <string name="app_name">Meerkat</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="hint_name">Nom Complet</string>
+    <string name="hint_nom">Nom Complet</string>
     <string name="btn_connexion">CONNEXION</string>
     <string name="btn_inscription">INSCRIPTION</string>
     <string name="btn_lien_inscription">Pas encore inscrit ? Inscrivez-vous maintenant.</string>
@@ -12,5 +12,7 @@
     <string name="btn_deconnexion">DECONNEXION</string>
     <string name="name">Nom Complet</string>
     <string name="minimum_password">6</string>
+    <string name="btn_FB">Connexion via Facebook</string>
     <string name="auth_failed">Echec de la connexion ( vérifiez bien vos identifiants)</string>
+    <string name="facebook_app_id">1577441722282289</string>
 </resources>

@@ -25,9 +25,10 @@ public class User {
         this.tel=tel;
         this.adresse=adresse;
     }
-    public User(String email, String tel){
+    public User(String nom, String email, String password){
         this.email = email;
-        this.tel = tel;
+        this.nom = nom;
+        this.password = password;
     }
 
 

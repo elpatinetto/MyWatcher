@@ -13,6 +13,7 @@
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
     <color name="btn_login">#7f8c8d</color>
+    <color name="btn_FB">#303F9F</color>
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
     <color name="btn_logut_bg">#ff6861</color>

@@ -18,6 +18,9 @@ android {
         }
     }
 }
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -29,6 +32,7 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile "com.google.firebase:firebase-auth:9.0.2"
     compile 'com.google.firebase:firebase-database:10.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

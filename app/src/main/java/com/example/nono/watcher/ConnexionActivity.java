@@ -5,35 +5,68 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.facebook.FacebookSdk;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ConnexionActivity extends AppCompatActivity {
 
     private Button btnConnexion, btnInscription;
+    private LoginButton loginButton;
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
-    private String userId;
-    ;
+    private CallbackManager mCallbackManager;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+
     private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
+        mCallbackManager = CallbackManager.Factory.create();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Toast.makeText(getApplicationContext(), "onAuthStateChanged:signed_in:" + user.getUid(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ConnexionActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // User is signed out
+                    Toast.makeText(getApplicationContext(), "user deco fb",Toast.LENGTH_SHORT).show();
+
+                }
+                // ...
+            }
+        };
+
+    if (auth.getCurrentUser() != null) {
             startActivity(new Intent(ConnexionActivity.this, MapsActivity.class));
             finish();
         }
@@ -44,7 +77,29 @@ public class ConnexionActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         btnConnexion = (Button) findViewById(R.id.btnConn);
         btnInscription = (Button) findViewById(R.id.btn_inscr);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getApplicationContext(),"connexionn fb :"+loginResult,Toast.LENGTH_SHORT).show();
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+               Toast.makeText(getApplicationContext(),"connexionn fb annulé",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(),"connexionn fb :"+error,Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         btnInscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,5 +154,48 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        Toast.makeText(ConnexionActivity.this, "ConnexionWithCredential :"+task.isSuccessful(),
+                                Toast.LENGTH_SHORT).show();
+
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(ConnexionActivity.this, "Authentication failed :"+task.getException(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                            Intent intent = new Intent(ConnexionActivity.this, MapsActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
+                    }
+                });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            auth.removeAuthStateListener(mAuthListener);
+        }
     }
 }
